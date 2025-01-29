@@ -50,7 +50,7 @@ Note: When building an image, the following format should be used: `<username>/<
 
 - Add `output: 'standalone',` to the next.config.ts/next.config.mjs file.
 
-- Build with: `docker buildx build --platform linux/amd64,linux/arm64 -t docker.io/scottgreenhalgh/docker-test . --push`
+- Build with: `docker buildx build --platform linux/amd64,linux/arm64 -t docker.io/scottgreenhalgh/docker-test:latest . --push`
 
 Note: If testing locally (not sharing) use `--load` or if sharing use `--push`.
 
@@ -72,7 +72,7 @@ Note: Images are stored locally under `/var/lib/docker` on Linux.
 
 - Usernaming being GitHub username. Password being the access token.
 
-- Build with: `docker buildx build --platform linux/amd64 -t ghcr.io/ScottGreenhalgh/docker-test:latest . --push`
+- Build with: `docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/ScottGreenhalgh/docker-test:latest . --push`
 
 - Run with: `docker run -p 3000:3000 ghcr.io/ScottGreenhalgh/docker-test:latest`
 
