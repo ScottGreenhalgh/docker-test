@@ -19,6 +19,7 @@ jobs:
         with:
           driver-opts: image=moby/buildkit:latest
         # replace "latest" with stable version if needed
+
       - name: login to docker hub
         if: github.event_name == 'push'
         uses: docker/login-action@v3
@@ -26,11 +27,9 @@ jobs:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
 
-      - name: build docker image
-        run: |
-          docker buildx build --platform linux/amd64,linux/arm64 -t docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/docker-test:latest .
-
-      - name: push image
+      - name: build and push docker image
         if: github.event_name == 'push'
         run: |
-          docker push docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/docker-test:latest
+          docker buildx build --platform linux/amd64,linux/arm64 -t docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/docker-test:latest . --push
+
+        # buildx doesn't store under local docker daemon image storage
