@@ -179,3 +179,31 @@ Actions checkout: https://github.com/actions/checkout/releases
 Docker Login Action: https://github.com/docker/login-action/releases
 
 Docker Buildkit (BuildX): https://github.com/moby/buildkit/releases
+
+### Resource not accessible by integration error:
+
+1. Go to repository "Settings".
+2. After that it will show you a left pane where you will find "Actions"
+3. Expand "Actions" tab
+4. Click on "General" under options tab.
+5. Now on new page scroll down and you will fine "Workflow Permissions"
+6. Select "Read and Write" under "Workflow Permissions".
+
+### Actions secrets
+
+1. Go to repository "Settings".
+2. After that it will show you a left pane where you will find "Secrets and variables"
+3. Expand "Secrets and variables" tab
+4. Click on "Actions"
+5. Click "New repository secret"
+6. Input Docker personal access token for usage in yaml
+
+### Generate Docker Hub Personal access token
+
+1. Login to docker hub (https://app.docker.com)
+2. Click on your profile image and navigate to "Account settings"
+3. Find the "Security" heading
+4. Click "Personal access tokens"
+5. Click "Generate new token"
+6. Name it something sensible and give it "Read & Write"
+7. Save the token somewhere safe (it only displays once)
