@@ -171,3 +171,11 @@ Note: Accessing the container only works if the container is running via the run
 - Get IDs for all resources (e.g container/image): `docker <resource> ls -q`, e.g `docker ps -q` for all containers.
 
 Useful source: https://github.com/vercel/next.js/tree/canary/examples/with-docker
+
+## GitHub Actions
+
+Actions checkout: https://github.com/actions/checkout/releases
+
+Docker Login Action: https://github.com/docker/login-action/releases
+
+Docker Buildkit (BuildX): https://github.com/moby/buildkit/releases
