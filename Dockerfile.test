@@ -1,22 +1,6 @@
 # Use a Node.js base image
 FROM node:18-alpine AS base
 
-# Install Chrome
-RUN apk --no-cache add \
-    chromium \
-    nss \
-    freetype \
-    harfbuzz \
-    ttf-freefont \
-    && apk add --no-cache --virtual .build-deps gcc libgcc libstdc++ python3 py3-pip \
-    && pip3 install selenium \
-    && npm install -g webdriverio
-
-# Install ChromeDriver
-RUN wget -q -O /chromedriver.zip https://chromedriver.storage.googleapis.com/132.0.6834.159/chromedriver_linux64.zip && \
-    unzip /chromedriver.zip -d /usr/local/bin/ && \
-    rm /chromedriver.zip
-
 # Install dependencies
 WORKDIR /app
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
