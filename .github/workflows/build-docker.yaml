@@ -45,7 +45,7 @@ jobs:
       - name: Set up Google Chrome
         uses: browser-actions/setup-chrome@v2
         with:
-        chrome-version: "latest"
+          chrome-version: "latest"
 
       - name: Set up Docker
         run: docker compose up -d
