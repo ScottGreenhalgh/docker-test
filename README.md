@@ -310,3 +310,7 @@ npm install @wdio/globals --save-dev
    */
   onComplete: function (exitCode, config, capabilities, results) {},
 ```
+
+## Chrome driver
+
+https://github.com/browser-actions

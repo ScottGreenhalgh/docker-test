@@ -1,6 +1,22 @@
 # Use a Node.js base image
 FROM node:18-alpine AS base
 
+# Install Chrome
+RUN apk --no-cache add \
+    chromium \
+    nss \
+    freetype2 \
+    harfbuzz \
+    ttf-freefont \
+    && apk add --no-cache --virtual .build-deps gcc libgcc libstdc++ python3 py3-pip \
+    && pip3 install selenium \
+    && npm install -g webdriverio
+
+# Install ChromeDriver
+RUN wget -q -O /chromedriver.zip https://chromedriver.storage.googleapis.com/132.0.6834.159/chromedriver_linux64.zip && \
+    unzip /chromedriver.zip -d /usr/local/bin/ && \
+    rm /chromedriver.zip
+
 # Install dependencies
 WORKDIR /app
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
@@ -14,11 +30,11 @@ RUN \
 # Copy the entire project
 COPY . .
 
+# Install WebDriverIO packages and dependencies
+RUN npm install --save-dev @wdio/cli @wdio/mocha-framework @wdio/local-runner @wdio/spec-reporter @wdio/chromedriver-service
+
 # Install WebDriverIO dependencies
 RUN npx wdio config --yes
-
-# Set environment variables if needed
-ENV NODE_ENV=test
 
 # Run tests
 CMD ["npx", "wdio", "./wdio.conf.ts"]

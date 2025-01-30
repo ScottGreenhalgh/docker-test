@@ -32,7 +32,7 @@ jobs:
         run: |
           docker buildx build --platform linux/amd64,linux/arm64 -t docker.io/${{ secrets.DOCKER_HUB_USERNAME }}/docker-test:latest . --push
 
-        # buildx doesn't store under local docker daemon image storage
+  # buildx doesn't store under local docker daemon image storage
 
   # testing with selenium
   test:
@@ -41,6 +41,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up Google Chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+        chrome-version: "latest"
 
       - name: Set up Docker
         run: docker compose up -d

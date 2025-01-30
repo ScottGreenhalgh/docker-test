@@ -28,10 +28,7 @@ export const config: Options.Testrunner & {
     timeout: 60000,
   },
   reporters: ["spec"],
-  services: ["selenium-standalone"],
-  hostname: "selenium",
-  port: 4444, // selenium default port
-  path: "wd/hub", // default path for webdriver requests
+  services: ["chromedriver"],
   before: async function () {
     await browser.maximizeWindow(); // Ensures browser is recognized correctly
   },
