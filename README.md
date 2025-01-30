@@ -219,6 +219,8 @@ Docker Buildkit (BuildX): https://github.com/moby/buildkit/releases
 ```
 npm install webdriverio @wdio/cli @wdio/mocha-framework @wdio/selenium-standalone-service chai @types/chai @types/webdriverio @types/mocha --save-dev
 
+npm install --save-dev @wdio/cli @wdio/mocha-framework @wdio/local-runner @wdio/spec-reporter @wdio/selenium-standalone-service chai @types/chai @types/mocha @types/node @types/webdriverio
+
 npm install ts-node @types/node --save-dev
 
 npm install @wdio/types --save-dev

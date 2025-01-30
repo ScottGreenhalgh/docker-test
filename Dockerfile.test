@@ -15,7 +15,7 @@ RUN \
 COPY . .
 
 # Install WebDriverIO packages and dependencies
-RUN npm install --save-dev @wdio/cli @wdio/mocha-framework @wdio/local-runner @wdio/spec-reporter @wdio/chromedriver-service
+RUN npm install --save-dev @wdio/cli @wdio/mocha-framework @wdio/local-runner @wdio/spec-reporter @wdio/selenium-standalone-service chai @types/chai @types/mocha @types/node @types/webdriverio
 
 # Install WebDriverIO dependencies
 RUN npx wdio config --yes
