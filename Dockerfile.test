@@ -15,7 +15,7 @@ RUN \
 COPY . .
 
 # Install WebDriverIO dependencies
-RUN npx wdio config
+RUN npx wdio config --yes
 
 # Set environment variables if needed
 ENV NODE_ENV=test
