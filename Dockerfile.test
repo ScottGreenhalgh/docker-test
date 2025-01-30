@@ -5,7 +5,7 @@ FROM node:18-alpine AS base
 RUN apk --no-cache add \
     chromium \
     nss \
-    freetype2 \
+    freetype \
     harfbuzz \
     ttf-freefont \
     && apk add --no-cache --virtual .build-deps gcc libgcc libstdc++ python3 py3-pip \
