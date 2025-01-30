@@ -207,3 +207,106 @@ Docker Buildkit (BuildX): https://github.com/moby/buildkit/releases
 5. Click "Generate new token"
 6. Name it something sensible and give it "Read & Write"
 7. Save the token somewhere safe (it only displays once)
+
+## Chai.js (BDD/TDD) with selenium-webdriver (testing environment)
+
+### Install dependencies
+
+- Install chai and selenium (via webdriverio) with typescript dependencies
+
+- Install node typescript dependency
+
+```
+npm install webdriverio @wdio/cli @wdio/mocha-framework @wdio/selenium-standalone-service chai @types/chai @types/webdriverio @types/mocha --save-dev
+
+npm install ts-node @types/node --save-dev
+
+npm install @wdio/types --save-dev
+
+npm install @wdio/globals --save-dev
+
+
+```
+
+### wdio optional functions
+
+```ts
+  // If you are using the wdio-docker service, uncomment the following
+  // and set the path accordingly
+  // docker: {
+  //     image: 'selenium/standalone-chrome',
+  //     options: {
+  //         p: '4444:4444',
+  //         v: `${process.cwd()}/tests:/tests`
+  //     }
+  // },
+  //
+  // =====
+  // Hooks
+  // =====
+  /**
+   * Gets executed before the whole worker process starts.
+   * @param {Object} caps Capabilities of the browser.
+   */
+  onPrepare: function (config, caps) {},
+  /**
+   * Gets executed just before a worker process is spawned.
+   * @param {String} workerId ID of the worker process.
+   * @param {Object} args          Capabilities and specs for the worker process.
+   * @param {Object} execArgv      Node flags such as --inspect.
+   * @param {Object} capabilities  Capabilities of the worker process.
+   */
+  onWorkerStart: function (cid, caps, args, execArgv, capabilities) {},
+  /**
+   * Gets executed before a session is created.
+   * @param {Object} caps Capabilities of the browser.
+   */
+  beforeSession: function (caps) {},
+  /**
+   * Gets executed before a browser instance is created.
+   * @param {Object} caps Capabilities of the browser.
+   */
+  before: async function (capabilities, browser) {
+    await browser.maximizeWindow();
+  },
+  /**
+   * Gets executed before a step (in Mocha/Jasmine) or a test (in Cucumber) starts.
+   * @param {Object} test context of the step/test
+   */
+  beforeTest: function (test) {},
+  /**
+   * Gets executed after a step (in Mocha/Jasmine) or a test (in Cucumber) starts.
+   * @param {Object} test context of the step/test
+   */
+  afterTest: function (
+    test,
+    context,
+    { error, result, duration, passed, retries }
+  ) {},
+  /**
+   * Gets executed after a browser instance is created.
+   * @param {Object} browser instance of browser
+   */
+  after: async function (capabilities, browser) {},
+  /**
+   * Gets executed after a session is created.
+   * @param {Object} caps Capabilities of the browser.
+   */
+  afterSession: function (caps) {},
+  /**
+   * Gets executed after a worker process is spawned.
+   * @param {String} workerId ID of the worker process.
+   * @param {Number} exitCode return code of worker process
+   * @param {Object} signal kill signal of worker process
+   * @param {Number} numFails number of failed tests in worker
+   */
+  onWorkerEnd: function (cid, exitCode, signal, numFails) {},
+  /**
+   * Gets executed right after a worker process has been shut down.
+   * @param {String} workerId ID of the worker process.
+   * @param {Number} exitCode return code of worker process
+   * @param {Object} signal kill signal of worker process
+   * @param {Number} numFails number of failed tests in worker
+   */
+  onComplete: function (exitCode, config, capabilities, results) {},
+```
