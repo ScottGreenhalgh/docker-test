@@ -17,6 +17,12 @@ COPY . .
 # Install WebDriverIO packages and dependencies
 RUN npm install --save-dev @wdio/cli @wdio/mocha-framework @wdio/local-runner @wdio/spec-reporter @wdio/selenium-standalone-service chai @types/chai @types/mocha @types/node @types/webdriverio
 
+# Install Chromium and ChromeDriver (the correct way)
+RUN apk add --no-cache chromium chromium-driver
+
+# Set the PATH. This is the CRUCIAL STEP.
+ENV PATH="/usr/bin:$PATH"
+
 # Install WebDriverIO dependencies
 RUN npx wdio config --yes
 
