@@ -43,7 +43,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Google Chrome
-        uses: browser-actions/setup-chrome@v2
+        uses: browser-actions/setup-chrome@v1.7.3
         with:
           chrome-version: "latest"
 
