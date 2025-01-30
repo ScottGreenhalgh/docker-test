@@ -36,6 +36,9 @@ RUN chmod +x chromedriver-linux64/chromedriver
 # Move ChromeDriver to /usr/bin 
 RUN mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
 
+# Debug: Verify installation
+RUN ls -lah /usr/bin/chromedriver && ldd /usr/bin/chromedriver
+
 # Verify ChromeDriver installation
 RUN /usr/bin/chromedriver --version
 
