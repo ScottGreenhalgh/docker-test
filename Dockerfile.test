@@ -18,10 +18,16 @@ COPY . .
 # Install WebDriverIO packages and dependencies
 RUN npm install --save-dev @wdio/cli @wdio/mocha-framework @wdio/local-runner @wdio/spec-reporter @wdio/selenium-standalone-service chai @types/chai @types/mocha @types/node @types/webdriverio
 
+# community repository
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories # Updated URL
+
+# Update the package list
+RUN apk update
+
 # Install WebDriverIO dependencies
 RUN npx wdio config --yes
 
-# Install Chromium and ChromeDriver (the correct way)
+# Install Chromium and ChromeDriver 
 RUN apk add --no-cache chromium chromedriver
 
 # Set the PATH. This is the CRUCIAL STEP.
