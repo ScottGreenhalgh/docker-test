@@ -31,10 +31,13 @@ RUN wget -O chromedriver.zip "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-fo
 RUN unzip chromedriver.zip
 
 # Make ChromeDriver executable
-RUN chmod +x chromedriver
+RUN chmod +x chromedriver-linux64/chromedriver
 
 # Move ChromeDriver to /usr/bin 
-RUN mv chromedriver /usr/bin
+RUN mv chromedriver-linux64/chromedriver /usr/bin/chromedriver
+
+# Verify ChromeDriver installation
+RUN /usr/bin/chromedriver --version
 
 # Set the PATH. 
 ENV PATH="/usr/bin:$PATH"

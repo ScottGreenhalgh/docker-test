@@ -316,3 +316,10 @@ npm install @wdio/globals --save-dev
 ## Chrome driver
 
 https://github.com/browser-actions
+
+Chrome driver revisions:
+
+https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions-per-build.json
+
+Template URL for chrome driver:
+https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{VERSION}/{PLATFORM}/chromedriver-{PLATFORM}.zip
