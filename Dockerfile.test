@@ -21,16 +21,22 @@ RUN npm install --save-dev @wdio/cli @wdio/mocha-framework @wdio/local-runner @w
 # Install WebDriverIO dependencies
 RUN npx wdio config --yes
 
-# community repository
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories # Updated URL
+# Install Chromium
+RUN apk add --no-cache chromium
 
-# Update the package list
-RUN apk update
+# Download ChromeDriver 
+RUN wget -O chromedriver.zip "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/134.0.6988.0/linux64/chromedriver-linux64.zip" 
 
-# Install Chromium and ChromeDriver 
-RUN apk add --no-cache chromium chromedriver
+# Unzip ChromeDriver
+RUN unzip chromedriver.zip
 
-# Set the PATH. This is the CRUCIAL STEP.
+# Make ChromeDriver executable
+RUN chmod +x chromedriver
+
+# Move ChromeDriver to /usr/bin 
+RUN mv chromedriver /usr/bin
+
+# Set the PATH. 
 ENV PATH="/usr/bin:$PATH"
 
 # Run tests
