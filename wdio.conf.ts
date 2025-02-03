@@ -18,7 +18,7 @@ export const config: Options.Testrunner & {
           "--disable-dev-shm-usage",
           "--headless",
           "--disable-gpu",
-          `--user-data-dir=/tmp/new-chrome-profile`,
+          `--user-data-dir=/tmp/chrome-profile-${Date.now()}`,
         ],
       },
     },
@@ -35,6 +35,14 @@ export const config: Options.Testrunner & {
     timeout: 60000,
   },
   reporters: ["spec"],
+  services: [
+    [
+      "chromedriver",
+      {
+        version: "134.0.6988.0",
+      },
+    ],
+  ],
   before: async function () {
     await browser.maximizeWindow(); // Ensures browser is recognized correctly
   },
