@@ -12,12 +12,13 @@ export const config: Options.Testrunner & {
     {
       browserName: "chrome",
       "goog:chromeOptions": {
+        binary: "/usr/bin/chromium",
         args: [
           "--no-sandbox",
           "--disable-dev-shm-usage",
           "--headless",
           "--disable-gpu",
-          `--user-data-dir=/tmp/chrome-profile`,
+          `--user-data-dir=/tmp/new-chrome-profile`,
         ],
       },
     },
@@ -34,23 +35,6 @@ export const config: Options.Testrunner & {
     timeout: 60000,
   },
   reporters: ["spec"],
-  services: [
-    [
-      "selenium-standalone",
-      {
-        installArgs: {
-          drivers: {
-            chrome: { version: "132.0.6834.159" },
-          },
-        },
-        args: {
-          drivers: {
-            chrome: { version: "132.0.6834.159" },
-          },
-        },
-      },
-    ],
-  ],
   before: async function () {
     await browser.maximizeWindow(); // Ensures browser is recognized correctly
   },

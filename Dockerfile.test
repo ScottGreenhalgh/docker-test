@@ -3,7 +3,7 @@ FROM node:18-bullseye AS base
 # Install dependencies
 WORKDIR /app
 
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./ 
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
 RUN \
   if [ -f yarn.lock ]; then yarn install --frozen-lockfile; \
   elif [ -f package-lock.json ]; then npm ci; \
@@ -20,7 +20,6 @@ RUN npm install --save-dev \
     @wdio/mocha-framework \
     @wdio/local-runner \
     @wdio/spec-reporter \
-    @wdio/selenium-standalone-service \
     chai @types/chai @types/mocha @types/node @types/webdriverio
 
 # Install WebDriverIO dependencies
@@ -29,7 +28,6 @@ RUN npx wdio config --yes
 # Install Chrome and dependencies
 RUN apt-get update && apt-get install -y \
     chromium \
-    chromium-driver \
     libglib2.0-0 \
     libnss3 \
     libx11-6 \
@@ -59,8 +57,9 @@ RUN apt-get update && apt-get install -y \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-# Download and install ChromeDriver
-RUN wget -O chromedriver.zip "https://storage.googleapis.com/chrome-for-testing-public/134.0.6988.0/linux64/chromedriver-linux64.zip" \
+# Download and install matching ChromeDriver
+RUN CHROME_VERSION=$(chromium --version | awk '{print $2}' | cut -d. -f1) \
+    && wget -O chromedriver.zip "https://storage.googleapis.com/chrome-for-testing-public/$CHROME_VERSION.0.6988.0/linux64/chromedriver-linux64.zip" \
     && unzip chromedriver.zip \
     && chmod +x chromedriver-linux64/chromedriver \
     && mv chromedriver-linux64/chromedriver /usr/bin/chromedriver \
@@ -71,6 +70,8 @@ RUN /usr/bin/chromedriver --version
 
 # Set the PATH
 ENV PATH="/usr/bin:$PATH"
+ENV CHROME_BIN="/usr/bin/chromium"
 
 # Run tests
 CMD ["npx", "wdio", "./wdio.conf.ts"]
+
