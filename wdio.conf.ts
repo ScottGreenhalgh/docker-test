@@ -18,7 +18,6 @@ export const config: Options.Testrunner & {
           "--disable-dev-shm-usage",
           "--headless",
           "--disable-gpu",
-          `--user-data-dir=/tmp/chrome-profile-${Date.now()}`,
         ],
       },
     },
