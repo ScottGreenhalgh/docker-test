@@ -12,7 +12,13 @@ export const config: Options.Testrunner & {
     {
       browserName: "chrome",
       "goog:chromeOptions": {
-        args: ["--headless", "--disable-gpu", "--window-size=1920x1080"],
+        args: [
+          "--no-sandbox",
+          "--disable-dev-shm-usage",
+          "--headless",
+          "--disable-gpu",
+          `--user-data-dir=/tmp/chrome-profile`,
+        ],
       },
     },
   ],
@@ -31,7 +37,18 @@ export const config: Options.Testrunner & {
   services: [
     [
       "selenium-standalone",
-      { chromedriverArgs: { chromedriver_version: "latest" } },
+      {
+        installArgs: {
+          drivers: {
+            chrome: { version: "132.0.6834.159" },
+          },
+        },
+        args: {
+          drivers: {
+            chrome: { version: "132.0.6834.159" },
+          },
+        },
+      },
     ],
   ],
   before: async function () {
