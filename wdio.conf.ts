@@ -5,7 +5,8 @@ export const config: Options.Testrunner & {
   capabilities: WebdriverIO.Capabilities[];
 } = {
   runner: "local",
-  specs: ["./tests/**/*.test.ts"],
+  rootDir: ".",
+  specs: ["./tests/*.test.ts"],
   exclude: [],
   maxInstances: 10,
   capabilities: [
@@ -18,6 +19,7 @@ export const config: Options.Testrunner & {
           "--disable-dev-shm-usage",
           "--headless",
           "--disable-gpu",
+          "--chromedriver-skip-install",
         ],
       },
     },
