@@ -60,19 +60,19 @@ RUN apt-get update && apt-get install -y \
 # Ensure chrome process isn't lingering
 RUN pkill -f chrome || true
 
-# Download and install ChromeDriver
-RUN wget -O chromedriver.zip "https://storage.googleapis.com/chrome-for-testing-public/134.0.6988.0/linux64/chromedriver-linux64.zip" \ 
-    && unzip chromedriver.zip \
-    && chmod +x chromedriver-linux64/chromedriver \
-    && mv chromedriver-linux64/chromedriver /usr/bin/chromedriver \
-    && rm -rf chromedriver.zip chromedriver-linux64/
+# # Download and install ChromeDriver
+# RUN wget -O chromedriver.zip "https://storage.googleapis.com/chrome-for-testing-public/134.0.6988.0/linux64/chromedriver-linux64.zip" \ 
+#     && unzip chromedriver.zip \
+#     && chmod +x chromedriver-linux64/chromedriver \
+#     && mv chromedriver-linux64/chromedriver /usr/bin/chromedriver \
+#     && rm -rf chromedriver.zip chromedriver-linux64/
 
-# Verify ChromeDriver installation
-RUN /usr/bin/chromedriver --version
+# # Verify ChromeDriver installation
+# RUN /usr/bin/chromedriver --version
 
 # Set the PATH
-ENV PATH="/usr/bin:$PATH"
-ENV CHROME_BIN="/usr/bin/chromium"
+# ENV PATH="/usr/bin:$PATH"
+# ENV CHROME_BIN="/usr/bin/chromium"
 
 # Run tests
 CMD ["npx", "wdio", "./wdio.conf.ts"]

@@ -42,10 +42,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Google Chrome
-        uses: browser-actions/setup-chrome@v1.7.3
-        with:
-          chrome-version: "latest"
+      # - name: Set up Google Chrome
+      #   uses: browser-actions/setup-chrome@v1.7.3
+      #   with:
+      #     chrome-version: "latest"
 
       - name: Set up Docker
         run: docker compose up -d
