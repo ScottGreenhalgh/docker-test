@@ -15,26 +15,14 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/chai": "^5.0.1",
-    "@types/mocha": "^10.0.10",
     "@types/node": "^20.17.16",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/webdriverio": "^4.13.3",
-    "@wdio/cli": "^9.7.2",
-    "@wdio/globals": "^9.7.2",
-    "@wdio/local-runner": "^9.7.2",
-    "@wdio/mocha-framework": "^9.7.2",
-    "@wdio/selenium-standalone-service": "^8.14.0",
-    "@wdio/spec-reporter": "^9.6.3",
-    "@wdio/types": "^9.6.3",
-    "chai": "^5.1.2",
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5",
-    "webdriverio": "^9.7.2"
+    "typescript": "^5"
   }
 }

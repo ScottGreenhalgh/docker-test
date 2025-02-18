@@ -22,14 +22,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["node", "@wdio/globals/types", "chai", "mocha"]
+    "types": ["node"]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "tests/**/*.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

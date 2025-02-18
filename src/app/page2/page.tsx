@@ -6,7 +6,8 @@ export default function Page2() {
   return (
     <div>
       <h1>Secondary page to test</h1>
-      {hydrated && <div data-test-id="hydration-complete"></div>}{" "}
+      <p>Page2 text</p>
+      {hydrated && <div data-test-id="hydration-complete"></div>}
       {/* Hydration marker */}
     </div>
   );

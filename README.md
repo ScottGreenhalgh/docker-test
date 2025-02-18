@@ -226,112 +226,75 @@ Docker Buildkit (BuildX): https://github.com/moby/buildkit/releases
 6. Name it something sensible and give it "Read & Write"
 7. Save the token somewhere safe (it only displays once)
 
-## Chai.js (BDD/TDD) with selenium-webdriver (testing environment)
+## Selenium (testing environment via python)
 
-### Install dependencies
+### Install dev dependencies
 
-- Install chai and selenium (via webdriverio) with typescript dependencies
+- Install node typescript dependency: `npm i ts-node @types/node --save-dev`
 
-- Install node typescript dependency
-
-```
-npm install webdriverio @wdio/cli @wdio/mocha-framework @wdio/selenium-standalone-service chai @types/chai @types/webdriverio @types/mocha --save-dev
-
-npm install --save-dev @wdio/cli @wdio/mocha-framework @wdio/local-runner @wdio/spec-reporter @wdio/selenium-standalone-service chai @types/chai @types/mocha @types/node @types/webdriverio
-
-npm install ts-node @types/node --save-dev
-
-npm install @wdio/types --save-dev
-
-npm install @wdio/globals --save-dev
-
-
-```
-
-### wdio optional functions
+### tsconfig tweaks
 
 ```ts
-  // If you are using the wdio-docker service, uncomment the following
-  // and set the path accordingly
-  // docker: {
-  //     image: 'selenium/standalone-chrome',
-  //     options: {
-  //         p: '4444:4444',
-  //         v: `${process.cwd()}/tests:/tests`
-  //     }
-  // },
-  //
-  // =====
-  // Hooks
-  // =====
-  /**
-   * Gets executed before the whole worker process starts.
-   * @param {Object} caps Capabilities of the browser.
-   */
-  onPrepare: function (config, caps) {},
-  /**
-   * Gets executed just before a worker process is spawned.
-   * @param {String} workerId ID of the worker process.
-   * @param {Object} args          Capabilities and specs for the worker process.
-   * @param {Object} execArgv      Node flags such as --inspect.
-   * @param {Object} capabilities  Capabilities of the worker process.
-   */
-  onWorkerStart: function (cid, caps, args, execArgv, capabilities) {},
-  /**
-   * Gets executed before a session is created.
-   * @param {Object} caps Capabilities of the browser.
-   */
-  beforeSession: function (caps) {},
-  /**
-   * Gets executed before a browser instance is created.
-   * @param {Object} caps Capabilities of the browser.
-   */
-  before: async function (capabilities, browser) {
-    await browser.maximizeWindow();
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "esnext",
+    "moduleResolution": "bundler", //next js preferes bundler
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "types": ["node"]
   },
-  /**
-   * Gets executed before a step (in Mocha/Jasmine) or a test (in Cucumber) starts.
-   * @param {Object} test context of the step/test
-   */
-  beforeTest: function (test) {},
-  /**
-   * Gets executed after a step (in Mocha/Jasmine) or a test (in Cucumber) starts.
-   * @param {Object} test context of the step/test
-   */
-  afterTest: function (
-    test,
-    context,
-    { error, result, duration, passed, retries }
-  ) {},
-  /**
-   * Gets executed after a browser instance is created.
-   * @param {Object} browser instance of browser
-   */
-  after: async function (capabilities, browser) {},
-  /**
-   * Gets executed after a session is created.
-   * @param {Object} caps Capabilities of the browser.
-   */
-  afterSession: function (caps) {},
-  /**
-   * Gets executed after a worker process is spawned.
-   * @param {String} workerId ID of the worker process.
-   * @param {Number} exitCode return code of worker process
-   * @param {Object} signal kill signal of worker process
-   * @param {Number} numFails number of failed tests in worker
-   */
-  onWorkerEnd: function (cid, exitCode, signal, numFails) {},
-  /**
-   * Gets executed right after a worker process has been shut down.
-   * @param {String} workerId ID of the worker process.
-   * @param {Number} exitCode return code of worker process
-   * @param {Object} signal kill signal of worker process
-   * @param {Number} numFails number of failed tests in worker
-   */
-  onComplete: function (exitCode, config, capabilities, results) {},
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
 ```
 
-## Chrome driver
+## Python file
+
+Template test file is as follows:
+
+```py
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+
+# Define options for running ChromeDriver
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+
+# Initialize a new Chrome driver instance
+driver = webdriver.Chrome(options=chrome_options)
+
+driver.get('https://www.example.com/')
+header_text = driver.find_element(By.XPATH, '//h1').text
+
+print("example.com Header text is:")
+print(header_text)
+
+driver.quit()
+```
+
+Look towards the `Dockerfile.test` and `.github/workflows/build-docker.yaml` test service for more info.
+
+## Chrome driver (not needed but useful for future)
 
 https://github.com/browser-actions
 
@@ -341,7 +304,3 @@ https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions-per-
 
 Template URL for chrome driver:
 https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{VERSION}/{PLATFORM}/chromedriver-{PLATFORM}.zip
-
-## Selenium
-
-Uses python to test
