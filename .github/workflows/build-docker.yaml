@@ -43,8 +43,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Start Selenium service
-        run: docker compose up -d selenium
+      - name: Start Selenium + Build service
+        run: docker compose -f docker-compose.yml up -d
 
       - name: Build and run tests
         run: |
