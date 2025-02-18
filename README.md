@@ -88,6 +88,24 @@ Note: Images are stored locally under `/var/lib/docker` on Linux.
 
 Note: Accessing the container only works if the container is running via the run command.
 
+### Running the container
+
+- Pull the image: `docker pull <TheUsernameOfTheImageOwnerHere> <ProjectNameHere>:<TagNameHere>`
+
+- Start the environment: `docker compose up`
+
+If another worker has made changes to the repo, do the following:
+
+- Stop the active container: `docker compose down`
+
+- Pull the repo: `git pull origin main`
+
+- Pull the docker image: `docker compose pull`
+
+- Restart the container: `docker compose up`
+
+Note: Older version if docker hyphenate the commands (e.g. docker-compose instead of docker compose)
+
 ## Misc Docker Commands
 
 ### Docker Image Commands
@@ -323,3 +341,7 @@ https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions-per-
 
 Template URL for chrome driver:
 https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{VERSION}/{PLATFORM}/chromedriver-{PLATFORM}.zip
+
+## Selenium
+
+Uses python to test
