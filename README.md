@@ -1,4 +1,4 @@
-# Docker
+# Docker Test (plus selenium)
 
 Blank next.js project featuring docker. Docker cheatsheet:
 
@@ -105,6 +105,22 @@ If another worker has made changes to the repo, do the following:
 - Restart the container: `docker compose up`
 
 Note: Older version if docker hyphenate the commands (e.g. docker-compose instead of docker compose)
+
+### Running a container with multiple services
+
+This project contains an app service (for building the application) and the selenium service (TDD/BDD for testing). During containerised deverlopment, selenium is not needed, but it is also a listed dependancy. Therefore to run this container you will need:
+
+`docker compose up --no-deps app`
+
+With `app` being the service name and `--no-deps` ignoring the dependancies.
+
+- To run selenium locally you can do: `docker compose up selenium`
+
+- To stop a single running service: `docker compose stop <service name>`
+
+### Running docker with VS Code dev container
+
+The VS Code Dev Container extension can attach to the development environment. The `.devcontainer/devcontainer.json` file defines which services it will attach to during development. In this project, this is currently configure to specifically target app and not selenium. Therefore selenium will not run unlsess explicitly started.
 
 ## Misc Docker Commands
 
@@ -226,7 +242,7 @@ Docker Buildkit (BuildX): https://github.com/moby/buildkit/releases
 6. Name it something sensible and give it "Read & Write"
 7. Save the token somewhere safe (it only displays once)
 
-## Selenium (testing environment via python)
+## Selenium BDD/TDD (testing environment via python)
 
 ### Install dev dependencies
 
@@ -266,7 +282,7 @@ Docker Buildkit (BuildX): https://github.com/moby/buildkit/releases
 }
 ```
 
-## Python file
+### Python file
 
 Template test file is as follows:
 
@@ -292,15 +308,16 @@ print(header_text)
 driver.quit()
 ```
 
-Look towards the `Dockerfile.test` and `.github/workflows/build-docker.yaml` test service for more info.
+### Dockerfile.test
+
+Our project uses two Dockerfile's for different services. The main Dockerfile is used to image the Next.js build. Dockerfile.test is designed to test this built application when running.
+
+Selenium is installed via docker through the image at `selenium/standalone-chrome:latest` via the docker-compose.yml under the selenium service. This service runs the Dockerfile.test, which runs through Microsoft Playwright, an application specifically designed for browser testing and comes pre installed with all the necessary browsers. Tests can either be ran directly through this, or we can run our own test application (in this instance we're using selenium). Installing the python package and selenium python package we can utilise this to execute python tests.
 
 ## Chrome driver (not needed but useful for future)
 
-https://github.com/browser-actions
+- Chrome driver revisions: https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions-per-build.json
 
-Chrome driver revisions:
+- Template URL for chrome driver: https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{VERSION}/{PLATFORM}/chromedriver-{PLATFORM}.zip
 
-https://googlechromelabs.github.io/chrome-for-testing/latest-patch-versions-per-build.json
-
-Template URL for chrome driver:
-https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/{VERSION}/{PLATFORM}/chromedriver-{PLATFORM}.zip
+- Browser Actions: https://github.com/browser-actions

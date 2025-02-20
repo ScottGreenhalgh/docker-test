@@ -1,8 +1,9 @@
 {
   "name": "Docker Test Dev Container",
   "dockerComposeFile": "../docker-compose.yml",
-  "service": "web",
+  "service": "app",
   "workspaceFolder": "/app",
+  "runServices": ["app"],
   "customizations": {
     "vscode": {
       "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
