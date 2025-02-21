@@ -3,23 +3,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      target: base # Specifically targets the development stage in multi-stage Dockerfile
+      target: base # Development stage in multi-stage Dockerfile
     ports:
       - "3000:3000"
     working_dir: /app
     restart: always # Automatically restart if container stops
-    command: npm run dev # Overrides default CMD, runs development server
+    command: npm run dev # Runs Next.js dev server
     environment:
       NODE_ENV: development
     volumes:
-      - .:/app # Mount current directory to /app in container
-      # - /app/node_modules # Preserve node_modules volume
+      - .:/app # Mounts your local directory into the container
+      - /app/node_modules # Avoid overwriting node_modules
       - /app/.next # Preserve Next.js build cache
-    depends_on:
-      - selenium
-
-  selenium:
-    image: selenium/standalone-chrome:latest
-    shm_size: 2g # Prevents insufficient memory crash
-    ports:
-      - "4444:4444"
